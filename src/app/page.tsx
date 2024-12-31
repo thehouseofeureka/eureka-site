@@ -33,7 +33,7 @@ export default function Home() {
       } else {
         setStatus({ message: 'Incorrect password', isError: true });
       }
-    } catch (err) {
+    } catch {
       setStatus({ message: 'Failed to connect to server', isError: true });
     }
   };
