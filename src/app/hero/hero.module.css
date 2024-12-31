@@ -1,0 +1,53 @@
+.container {
+    min-height: 100vh;
+    font-family: Georgia, serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.logo {
+    font-size: 24px;
+    margin: 0;
+}
+
+.menuContainer {
+    display: flex;
+    gap: 40px;
+    margin-left: 100px;
+}
+
+.menuItem {
+    position: relative;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+}
+
+.dropdownItem {
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dropdownItem:hover {
+    text-decoration: underline;
+}
+
+.account {
+    margin-left: auto;
+    font-size: 18px;
+}
