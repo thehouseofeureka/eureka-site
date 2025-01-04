@@ -42,7 +42,13 @@ export default function Navbar() {
     return (
         <div className={styles.container}>
             <nav className={styles.navbar}>
-                <p className={styles.logo}>HOUSE OF EUREKA</p>
+                <p
+                    className={styles.logo}
+                    onClick={() => router.push('/home')}
+                    style={{ cursor: 'pointer' }}
+                >
+                    HOUSE OF EUREKA
+                </p>
 
                 <div className={styles.menuContainer}>
                     {menuSections.map((section) => (
