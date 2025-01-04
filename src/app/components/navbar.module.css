@@ -1,6 +1,8 @@
 .container {
     min-height: 100vh;
     font-family: Georgia, serif;
+    background-color: #FAFAFA;
+    color: #171717;
 }
 
 .navbar {
@@ -8,11 +10,14 @@
     align-items: center;
     padding: 20px;
     position: relative;
+    color: #171717;
 }
 
 .logo {
     font-size: 24px;
     margin: 0;
+    font-family: Georgia, serif;
+    color: #171717;
 }
 
 .menuContainer {
@@ -27,11 +32,16 @@
     font-size: 18px;
 }
 
+.menuItem span:hover, 
+.dropdownItem:hover {
+    text-decoration: underline;
+}
+
 .dropdown {
     position: absolute;
     top: 100%;
     left: 0;
-    background: white;
+    background: #FAFAFA;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -43,11 +53,8 @@
     white-space: nowrap;
 }
 
-.dropdownItem:hover {
-    text-decoration: underline;
-}
-
 .account {
     margin-left: auto;
     font-size: 18px;
+    padding-right: 15px;
 }

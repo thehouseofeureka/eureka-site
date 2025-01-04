@@ -26,12 +26,11 @@ export default function Home() {
       
       if (data.success) {
         setStatus({ message: 'Correct! Entering now...', isError: false });
-        // Wait 1 second then navigate
         setTimeout(() => {
-          router.push('/hero');
-        }, 750);
+          router.push('/home');
+        }, 600);
       } else {
-        setStatus({ message: 'Incorrect password', isError: true });
+        setStatus({ message: 'Incorrect password.', isError: true });
       }
     } catch {
       setStatus({ message: 'Failed to connect to server', isError: true });
@@ -47,7 +46,7 @@ export default function Home() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={styles.passwordInput}
-          placeholder="Password..."
+          placeholder="Password"
         />
         {status && (
           <div className={status.isError ? styles.error : styles.success}>
