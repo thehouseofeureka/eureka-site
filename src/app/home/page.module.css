@@ -1,0 +1,46 @@
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(65vh);
+  background-color: #FAFAFA;
+}
+
+.flowerWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.flowerClockwise, 
+.flowerCounterClockwise {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes rotateClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCounterClockwise {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.flowerClockwise {
+  animation: rotateClockwise 20s linear infinite;
+}
+
+.flowerCounterClockwise {
+  animation: rotateCounterClockwise 20s linear infinite;
+}
