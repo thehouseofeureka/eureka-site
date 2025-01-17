@@ -1,7 +1,6 @@
 .container {
     min-height: 5vh;
     font-family: Georgia, serif;
-    background-color: #FAFAFA;
     color: #171717;
 }
 
@@ -41,7 +40,6 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: #FAFAFA;
     display: flex;
     flex-direction: column;
     gap: 15px;

@@ -1,7 +1,6 @@
 .container {
     min-height: 100vh;
     font-family: Georgia, serif;
-    background-color: #FAFAFA;
     color: #171717;
 }
 
@@ -32,7 +31,6 @@
     font-family: Georgia, serif;
     border: 1.5px solid #000;
     color: #171717;
-    background-color: #FAFAFA;
 }
 
 .passwordInput:focus::placeholder {
