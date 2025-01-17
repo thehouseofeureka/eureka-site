@@ -1,6 +1,6 @@
 // src/app/home/page.tsx
-import Navbar from '../components/navbar/Navbar'
-import Footer from '../components/footer/Footer'
+import Navbar from '../components/Navbar/Navbar'
+import Footer from '../components/Footer/Footer'
 import Image from 'next/image'
 import styles from './page.module.css'
 

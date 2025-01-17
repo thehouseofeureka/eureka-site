@@ -1,8 +1,8 @@
 'use client'
 import React, { useState, useMemo } from 'react';
 import styles from './page.module.css'
-import Navbar from '@/app/components/navbar/Navbar';
-import Footer from '@/app/components/footer/Footer';
+import Navbar from '@/app/components/Navbar/Navbar';
+import Footer from '@/app/components/Footer/Footer';
 import { Search, ChevronDown, ArrowDown, ChevronUp, ArrowRight } from 'lucide-react';
 
 interface RosterMember {
@@ -477,8 +477,6 @@ export default function Roster() {
             ))}
           </tbody>
         </table>
-
-        {/* PAGINATION CONTROLS */}
         {filteredData.length > itemsPerPage && (
           <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
             <button
