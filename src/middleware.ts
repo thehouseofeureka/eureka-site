@@ -27,7 +27,9 @@ export function middleware(request: NextRequest) {
     '/events/outings',
     '/establishments',
     '/establishments/owned',
-    '/establishments/affiliated'
+    '/establishments/affiliated',
+    '/account/login',
+    '/account/register'
   ].includes(path)
 
   if (isProtectedRoute && !isAuthenticated) {
@@ -48,6 +50,7 @@ export const config = {
     '/events',
     '/events/:path*',
     '/establishments',
-    '/establishments/:path*'
+    '/establishments/:path*',
+    '/account/:path*'
   ]
 }
