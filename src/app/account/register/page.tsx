@@ -5,13 +5,26 @@ import { RosterMember } from '@/lib/kv';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 
+interface RegistrationFormData {
+  name: string;
+  rank: string;
+  chapters: string;
+  joinDate: string;
+  projectGroups: string[];
+  contacts: {
+    email: string;
+    phone: string;
+    instagram: string;
+  };
+}
+
 export default function Register() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegistrationFormData>({
     name: '',
-    rank: 'Son', // Default value
-    chapters: 'Founding Chapter', // Fixed value
-    joinDate: new Date().toLocaleDateString(), // Today's date
-    projectGroups: ['House Affiliated'], // Fixed value
+    rank: 'Son',
+    chapters: 'Founding Chapter',
+    joinDate: new Date().toLocaleDateString(),
+    projectGroups: ['House Affiliated'],
     contacts: {
       email: '',
       phone: '',
@@ -19,16 +32,12 @@ export default function Register() {
     }
   });
 
-  const generateTags = (formData: any) => {
+  const generateTags = (formData: RegistrationFormData): string[] => {
     const tags = new Set<string>();
-    
-    // Add rank as tag
+
     tags.add(formData.rank);
-    
-    // Add chapter as tag
     tags.add(formData.chapters);
-    
-    // Add Instagram tag if instagram handle is provided
+
     if (formData.contacts.instagram) {
       tags.add('Instagram');
     }
@@ -39,10 +48,9 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Create the final member object with generated tags
     const memberData: RosterMember = {
       ...formData,
-      rank: [formData.rank], // Convert rank to array as per interface
+      rank: [formData.rank],
       tags: generateTags(formData),
     };
 
@@ -117,7 +125,7 @@ export default function Register() {
           {/* Contact Fields */}
           <div style={{ marginBottom: '20px' }}>
             <h3>Contact Information</h3>
-            
+
             <div>
               <label htmlFor="email">Email:</label>
               <input

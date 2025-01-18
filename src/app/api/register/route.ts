@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     await redis.set('roster:all', members);
     
     return Response.json({ success: true });
-  } catch (error) {
+  } catch {
     return Response.json({ error: 'Failed to register' }, { status: 500 });
   }
 }

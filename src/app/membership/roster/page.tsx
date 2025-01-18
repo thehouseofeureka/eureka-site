@@ -11,7 +11,7 @@ export default function Roster() {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [rosterData, setRosterData] = useState<RosterMember[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
