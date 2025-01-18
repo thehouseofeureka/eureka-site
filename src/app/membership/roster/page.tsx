@@ -1,262 +1,37 @@
 'use client'
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styles from './page.module.css'
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import { Search, ChevronDown, ArrowDown, ChevronUp, ArrowRight } from 'lucide-react';
-
-interface RosterMember {
-  name: string;
-  rank: string[];
-  chapters: string;
-  joinDate: string;
-  projectGroups: string[];
-  tags: string[];
-  contacts: {
-    email: string;
-    phone: string;
-    instagram: string;
-  };
-}
+import { getAllMembers, RosterMember } from '@/lib/kv';
 
 export default function Roster() {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
+  const [rosterData, setRosterData] = useState<RosterMember[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  const rosterData: RosterMember[] = [
-    {
-      name: 'Devin Deng',
-      rank: ['Founder'],
-      chapters: 'Founding Chapter',
-      joinDate: '09/26/2004',
-      projectGroups: [
-        'Priory of Strategic Outcomes - Administrator',
-        'Project Irad - Administrator',
-        'Project Hesychia - Administrator',
-        'Project Diopetes - Administrator'
-      ],
-      tags: ['Stuyvesant High School', 'New York University', 'Instagram'],
-      contacts: {
-        email: 'devindeng6793@gmail.com',
-        phone: '(929) 525-7783',
-        instagram: '@father.devin'
+  useEffect(() => {
+    const loadMembers = async () => {
+      setIsLoading(true);
+      try {
+        const members = await getAllMembers();
+        setRosterData(members);
+      } catch (error) {
+        console.error('Failed to load roster:', error);
+      } finally {
+        setIsLoading(false);
       }
-    },
-    {
-      name: 'Leonaurdo Angel Bernarbe Zheng',
-      rank: ['Son'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: ['Department of Web Development - Lead Developer'],
-      tags: ['Stuyvesant High School', 'Daughter', 'Instagram'],
-      contacts: {
-        email: 'leo.zheng@gmail.com',
-        phone: '(646) 555-0123',
-        instagram: '@leo.codes'
-      }
-    },
-    {
-      name: 'Preston Tang',
-      rank: ['Son'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Department of Web Development - Senior Developer',
-        'Project Atlas - Contributor'
-      ],
-      tags: ['New York University', 'Son', 'Instagram'],
-      contacts: {
-        email: 'preston.tang@gmail.com',
-        phone: '(917) 555-0456',
-        instagram: '@preston.dev'
-      }
-    },
-    {
-      name: 'Megan Lin',
-      rank: ['Daughter'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Department of Human Development - Director',
-        'Project Nurture - Lead'
-      ],
-      tags: ['Stuyvesant High School', 'New York University'],
-      contacts: {
-        email: 'megan.lin@gmail.com',
-        phone: '(718) 555-0789',
-        instagram: '@megan.grows'
-      }
-    },
-    {
-      name: 'Brian Lee',
-      rank: ['Father-in-Training'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Priory of Strategic Outcomes - Strategist',
-        'Project Mentor - Lead'
-      ],
-      tags: ['Instagram', 'New York University'],
-      contacts: {
-        email: 'brian.lee@gmail.com',
-        phone: '(347) 555-1012',
-        instagram: '@brian.leads'
-      }
-    },
-    {
-      name: 'Flavio Hideaki Senaga Shiray',
-      rank: ['Son'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Priory of Strategic Outcomes - Analyst',
-        'Project Insight - Coordinator'
-      ],
-      tags: ['Stuyvesant High School', 'Son'],
-      contacts: {
-        email: 'flavio.shiray@gmail.com',
-        phone: '(212) 555-1314',
-        instagram: '@flavio.analyzes'
-      }
-    },
-    {
-      name: 'Lanie Tang',
-      rank: ['Mother-in-Training'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Department of Maneating - Director',
-        'Project Nurture - Advisor'
-      ],
-      tags: ['Instagram', 'New York University'],
-      contacts: {
-        email: 'lanie.tang@gmail.com',
-        phone: '(646) 555-1516',
-        instagram: '@lanie.nurtures'
-      }
-    },
-    {
-      name: 'Jeffrey Yeung',
-      rank: ['Father-in-Training'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Priory of Strategic Outcomes - Coordinator',
-        'Project Guidance - Lead'
-      ],
-      tags: ['Stuyvesant High School', 'Instagram'],
-      contacts: {
-        email: 'jeffrey.yeung@gmail.com',
-        phone: '(917) 555-1718',
-        instagram: '@jeffrey.guides'
-      }
-    },
-    {
-      name: 'Nathan Jung',
-      rank: ['Son'],
-      chapters: 'Founding Chapter',
-      joinDate: '—',
-      projectGroups: [
-        'Department of Engineering - Lead Engineer',
-        'Project Infrastructure - Architect'
-      ],
-      tags: ['New York University', 'Son', 'Instagram'],
-      contacts: {
-        email: 'nathan.jung@gmail.com',
-        phone: '(718) 555-1920',
-        instagram: '@nathan.builds'
-      }
-    },
-    {
-      name: 'Sarah Chen',
-      rank: ['Daughter'],
-      chapters: 'Eastern Chapter',
-      joinDate: '03/15/2023',
-      projectGroups: [
-        'Department of Communication - Director',
-        'Project Outreach - Lead'
-      ],
-      tags: ['Stuyvesant High School', 'Daughter'],
-      contacts: {
-        email: 'sarah.chen@gmail.com',
-        phone: '(347) 555-2122',
-        instagram: '@sarah.speaks'
-      }
-    },
-    {
-      name: 'Michael Kim',
-      rank: ['Father-in-Training', 'Mentor'],
-      chapters: 'Western Chapter',
-      joinDate: '06/20/2022',
-      projectGroups: [
-        'Department of Education - Director',
-        'Project Wisdom - Lead',
-        'Mentorship Program - Senior Advisor'
-      ],
-      tags: ['New York University', 'Instagram'],
-      contacts: {
-        email: 'michael.kim@gmail.com',
-        phone: '(212) 555-2324',
-        instagram: '@michael.teaches'
-      }
-    },
-    {
-      name: 'Emily Wong',
-      rank: ['Mother-in-Training', 'Counselor'],
-      chapters: 'Northern Chapter',
-      joinDate: '09/10/2022',
-      projectGroups: [
-        'Department of Wellness - Director',
-        'Project Harmony - Lead',
-        'Counseling Initiative - Coordinator'
-      ],
-      tags: ['Stuyvesant High School', 'Instagram'],
-      contacts: {
-        email: 'emily.wong@gmail.com',
-        phone: '(646) 555-2526',
-        instagram: '@emily.counsels'
-      }
-    },
-    {
-      name: 'David Liu',
-      rank: ['Son', 'Developer'],
-      chapters: 'Southern Chapter',
-      joinDate: '01/05/2023',
-      projectGroups: [
-        'Department of Innovation - Lead',
-        'Project Future - Architect',
-        'Tech Initiative - Coordinator'
-      ],
-      tags: ['New York University', 'Son', 'Instagram'],
-      contacts: {
-        email: 'david.liu@gmail.com',
-        phone: '(917) 555-2728',
-        instagram: '@david.innovates'
-      }
-    },
-    {
-      name: 'Rachel Park',
-      rank: ['Daughter', 'Researcher'],
-      chapters: 'Central Chapter',
-      joinDate: '11/30/2022',
-      projectGroups: [
-        'Department of Research - Director',
-        'Project Discovery - Lead',
-        'Analytics Team - Coordinator'
-      ],
-      tags: ['Stuyvesant High School', 'Daughter'],
-      contacts: {
-        email: 'rachel.park@gmail.com',
-        phone: '(718) 555-2930',
-        instagram: '@rachel.discovers'
-      }
-    }
-  ];
+    };
+
+    loadMembers();
+  }, []);
 
   // Get the most common tags
   const getPopularTags = (): string[] => {

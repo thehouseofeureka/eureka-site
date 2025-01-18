@@ -14,7 +14,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/enter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
