@@ -54,11 +54,6 @@ const uploadFile = async (file: File, fileType: 'profile' | 'resume') => {
   }
 };
 
-interface UploadStatus {
-  profile: { loading: boolean; progress: number };
-  resume: { loading: boolean; progress: number };
-}
-
 interface RegistrationFormData {
   name: string;
   password: string;
