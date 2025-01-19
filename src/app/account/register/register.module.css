@@ -14,6 +14,11 @@
   display: none;
 }
 
+.subDescription {
+  color: black;
+  font-family: Georgia, serif;
+}
+
 /* Ensure consistent box-sizing */
 .input,
 .select {

@@ -1,6 +1,7 @@
 // app/register/page.tsx
 'use client'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import styles from './register.module.css';
@@ -20,7 +21,7 @@ const uploadFile = async (file: File, fileType: 'profile' | 'resume') => {
   try {
     // Get file extension
     const fileExtension = file.name.split('.').pop() || '';
-    
+
     const formData = new FormData();
     formData.append('file', file);
     formData.append('fileType', fileType);
@@ -38,7 +39,7 @@ const uploadFile = async (file: File, fileType: 'profile' | 'resume') => {
     }
 
     const result = await response.json();
-    
+
     // For resume files, make sure the URL includes the extension
     if (fileType === 'resume') {
       // Check if the URL already has an extension, if not add it
@@ -46,7 +47,7 @@ const uploadFile = async (file: File, fileType: 'profile' | 'resume') => {
         return `${result.secure_url}.${fileExtension}`;
       }
     }
-    
+
     return result.secure_url;
   } catch (error) {
     console.error('Upload error:', error);
@@ -91,6 +92,7 @@ interface RegistrationFormData {
 }
 
 export default function Register() {
+  const router = useRouter();
   const [customGender, setCustomGender] = useState<string>('');
   const [customSexualOrientation, setCustomSexualOrientation] = useState<string>('');
 
@@ -194,7 +196,7 @@ export default function Register() {
         throw new Error('Registration failed');
       }
 
-      alert('Registration successful!');
+      router.push('/membership/roster');
     } catch (error) {
       console.error('Registration error:', error);
       alert('An error occurred during registration.');
@@ -368,7 +370,7 @@ export default function Register() {
 
             <div className={styles.row}>
               <div className={styles.formGroup}>
-                <FieldLabel htmlFor="placeOfBirth" label="Place of Birth" required />
+                <FieldLabel htmlFor="placeOfBirth" label="Place of Birth (City, Country)" required />
                 <input
                   className={styles.input}
                   type="text"
@@ -495,7 +497,7 @@ export default function Register() {
             <h2 className={styles.sectionTitle}>Contact Information</h2>
             <div className={styles.contactsGrid}>
               <div className={styles.formGroup}>
-                <FieldLabel htmlFor="email" label="Email" required />
+                <FieldLabel htmlFor="email" label="Email (Personal)" required />
                 <input
                   className={styles.input}
                   type="email"
@@ -518,18 +520,18 @@ export default function Register() {
               </div>
 
               {/* Optional contact fields */}
-              {['instagram', 'wechat', 'line', 'discord', 'whatsapp', 'linkedin', 'kakaotalk'].map((field) => (
+              {['Instagram', 'WeChat', 'Line', 'Discord', 'Whatsapp', 'LinkedIn', 'KakaoTalk'].map((field) => (
                 <div key={field} className={styles.formGroup}>
                   <FieldLabel
                     htmlFor={field}
-                    label={field.charAt(0).toUpperCase() + field.slice(1)}
+                    label={field}
                   />
                   <input
                     className={styles.input}
                     type="text"
                     id={field}
-                    value={formData.contacts[field as keyof typeof formData.contacts]}
-                    onChange={(e) => updateContact(field as keyof typeof formData.contacts, e.target.value)}
+                    value={formData.contacts[field.toLowerCase() as keyof typeof formData.contacts]}
+                    onChange={(e) => updateContact(field.toLowerCase() as keyof typeof formData.contacts, e.target.value)}
                   />
                 </div>
               ))}
@@ -542,6 +544,9 @@ export default function Register() {
 
             <div className={styles.formGroup}>
               <h3 className={styles.subTitle}>Professional Information</h3>
+              <p className={styles.subDescription}>
+                If applicable, list your five most recent Job Titles and their respective Companies in the provided format. Sections that are unable to be filled out can be left blank.
+              </p>
               {formData.professionalInformation.map((info, index) => (
                 <div key={index} className={styles.arrayField}>
                   <input
@@ -585,6 +590,9 @@ export default function Register() {
 
             <div className={styles.formGroup}>
               <h3 className={styles.subTitle}>Organizations</h3>
+              <p className={styles.subDescription}>
+                If applicable, list your five most recent Titles and their respective Organizations in the provided format. Sections that are unable to be filled out can be left blank.
+              </p>
               {formData.organizations.map((org, index) => (
                 <div key={index} className={styles.arrayField}>
                   <input
@@ -594,24 +602,43 @@ export default function Register() {
                     onChange={(e) => updateArray('organizations', index, e.target.value)}
                     placeholder="Organization name"
                   />
-                  {index === formData.organizations.length - 1 && (
-                    <button
-                      type="button"
-                      className={styles.addButton}
-                      onClick={() => setFormData({
-                        ...formData,
-                        organizations: [...formData.organizations, '']
-                      })}
-                    >
-                      Add More
-                    </button>
-                  )}
+                  <div className={styles.buttonGroup}>
+                    {formData.organizations.length > 1 && (
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            organizations: formData.organizations.filter((_, i) => i !== index)
+                          });
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
+                    {index === formData.organizations.length - 1 && (
+                      <button
+                        type="button"
+                        className={styles.addButton}
+                        onClick={() => setFormData({
+                          ...formData,
+                          organizations: [...formData.organizations, '']
+                        })}
+                      >
+                        Add More
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
 
             <div className={styles.formGroup}>
               <h3 className={styles.subTitle}>Cultural Identifiers</h3>
+              <p className={styles.subDescription}>
+                Please list any languages spoken, hobbies or interests, religious or cultural affiliation, etc.
+              </p>
               {formData.culturalIdentifiers.map((identifier, index) => (
                 <div key={index} className={styles.arrayField}>
                   <input
@@ -621,18 +648,34 @@ export default function Register() {
                     onChange={(e) => updateArray('culturalIdentifiers', index, e.target.value)}
                     placeholder="Cultural identifier"
                   />
-                  {index === formData.culturalIdentifiers.length - 1 && (
-                    <button
-                      type="button"
-                      className={styles.addButton}
-                      onClick={() => setFormData({
-                        ...formData,
-                        culturalIdentifiers: [...formData.culturalIdentifiers, '']
-                      })}
-                    >
-                      Add More
-                    </button>
-                  )}
+                  <div className={styles.buttonGroup}>
+                    {formData.culturalIdentifiers.length > 1 && (
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            culturalIdentifiers: formData.culturalIdentifiers.filter((_, i) => i !== index)
+                          });
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
+                    {index === formData.culturalIdentifiers.length - 1 && (
+                      <button
+                        type="button"
+                        className={styles.addButton}
+                        onClick={() => setFormData({
+                          ...formData,
+                          culturalIdentifiers: [...formData.culturalIdentifiers, '']
+                        })}
+                      >
+                        Add More
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
