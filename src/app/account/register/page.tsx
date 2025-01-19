@@ -98,10 +98,6 @@ interface RegistrationFormData {
 export default function Register() {
   const [customGender, setCustomGender] = useState<string>('');
   const [customSexualOrientation, setCustomSexualOrientation] = useState<string>('');
-  const [uploadStatus, setUploadStatus] = useState<UploadStatus>({
-    profile: { loading: false, progress: 0 },
-    resume: { loading: false, progress: 0 }
-  });
 
   const [selectedFiles, setSelectedFiles] = useState<{
     profile?: File;

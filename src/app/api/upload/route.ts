@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 import { cloudinary } from '@/lib/cloudinary';
 
+interface CloudinaryUploadOptions {
+  folder: string;
+  resource_type: 'image' | 'raw';
+  chunk_size: number;
+  public_id?: string;
+}
+
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
@@ -18,7 +25,7 @@ export async function POST(req: Request) {
     const fileStr = `data:${file.type};base64,${buffer.toString('base64')}`;
 
     try {
-      const uploadOptions: any = {
+      const uploadOptions: CloudinaryUploadOptions = {
         folder: fileType === 'profile' ? 'profile_pictures' : 'resumes',
         resource_type: fileType === 'profile' ? 'image' : 'raw',
         chunk_size: 6000000,
