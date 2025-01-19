@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import { Search, ChevronDown, ArrowDown, ChevronUp, ArrowRight } from 'lucide-react';
-import { getAllMembers, RosterMember } from '@/lib/kv';
+import { getRosterView, RosterMember } from '@/lib/kv';
 
 export default function Roster() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,7 +21,7 @@ export default function Roster() {
     const loadMembers = async () => {
       setIsLoading(true);
       try {
-        const members = await getAllMembers();
+        const members = await getRosterView();
         setRosterData(members);
       } catch (error) {
         console.error('Failed to load roster:', error);
@@ -136,9 +136,9 @@ export default function Roster() {
                 ))}
               </div>
             </div>
-            <button className={styles.moreTagsButton}>
-              More Tags
-            </button>
+            {/* <button className={styles.moreTagsButton}>
+              See All Tags
+            </button> */}
           </div>
           <div className={styles.searchContainer}>
             <Search className={styles.searchIcon} size={20} />
@@ -232,9 +232,15 @@ export default function Roster() {
                           <div className={styles.expandedSection}>
                             <h3>Contacts</h3>
                             <div className={styles.contactsList}>
-                              <div>E-Mail: {member.contacts.email}</div>
-                              <div>Phone Number: {member.contacts.phone}</div>
-                              <div>Instagram: {member.contacts.instagram}</div>
+                              {Object.entries(member.contacts).map(([platform, value]) => {
+                                if (!value) return null; // Skip empty values
+                                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                                return (
+                                  <div key={platform}>
+                                    {label}: {value}
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                           <div className={`${styles.expandedSection} ${styles.profileSection}`}>

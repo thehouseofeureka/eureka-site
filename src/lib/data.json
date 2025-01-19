@@ -1,0 +1,502 @@
+[
+  {
+    "name": "John Smith",
+    "password": "securePass123!",
+    "rank": "Son",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Technology Committee"
+    ],
+    "dateOfBirth": "1990-05-15",
+    "gender": "Male",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Boston, MA",
+    "nationality": "American",
+    "race": "White",
+    "maritalStatus": "Single Never Married",
+    "children": 0,
+    "educationalBackground": [
+      "Harvard University, BS Computer Science, 2012",
+      "MIT, MS Computer Science, 2014"
+    ],
+    "professionalInformation": [
+      "Senior Software Engineer at Google",
+      "Tech Lead at Amazon"
+    ],
+    "organizations": [
+      "IEEE",
+      "ACM"
+    ],
+    "culturalIdentifiers": [
+      "Irish-American",
+      "First-generation college graduate"
+    ],
+    "allergies": "Peanuts",
+    "additionalInformation": "Passionate about AI and machine learning",
+    "profilePictureUrl": "https://example.com/profiles/john-smith.jpg",
+    "resumeUrl": "https://example.com/resumes/john-smith.pdf",
+    "contacts": {
+      "email": "john.smith@email.com",
+      "phone": "+1-555-0123",
+      "instagram": "jsmith_tech",
+      "wechat": "",
+      "line": "",
+      "discord": "jsmith#1234",
+      "whatsapp": "+1-555-0123",
+      "linkedin": "johnsmith",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "Emily Chen",
+    "password": "strongPwd456@",
+    "rank": "Daughter",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Arts Committee"
+    ],
+    "dateOfBirth": "1993-08-22",
+    "gender": "Female",
+    "sexualOrientation": "Bisexual",
+    "placeOfBirth": "San Francisco, CA",
+    "nationality": "American",
+    "race": "Asian",
+    "maritalStatus": "Single Never Married",
+    "children": 0,
+    "educationalBackground": [
+      "Stanford University, BA Design, 2015",
+      "Parsons School of Design, MFA, 2017"
+    ],
+    "professionalInformation": [
+      "UX Designer at Apple",
+      "Creative Director at Design Studio"
+    ],
+    "organizations": [
+      "AIGA",
+      "Interaction Design Association"
+    ],
+    "culturalIdentifiers": [
+      "Chinese-American",
+      "LGBTQ+"
+    ],
+    "allergies": "Shellfish",
+    "additionalInformation": "Fluent in Mandarin and Cantonese",
+    "profilePictureUrl": "https://example.com/profiles/emily-chen.jpg",
+    "resumeUrl": "https://example.com/resumes/emily-chen.pdf",
+    "contacts": {
+      "email": "emily.chen@email.com",
+      "phone": "+1-555-0124",
+      "instagram": "emilyc_design",
+      "wechat": "emilychen88",
+      "line": "emilyc",
+      "discord": "emilyc#5678",
+      "whatsapp": "+1-555-0124",
+      "linkedin": "emilychen",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "Michael Rodriguez",
+    "password": "safePass789#",
+    "rank": "Son",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Education Committee"
+    ],
+    "dateOfBirth": "1988-11-30",
+    "gender": "Male",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Miami, FL",
+    "nationality": "American",
+    "race": "Hispanic or Latino",
+    "maritalStatus": "Married",
+    "children": 1,
+    "educationalBackground": [
+      "Rice University, BS Kinesiology, 2012",
+      "University of Texas, MS Sports Medicine, 2014"
+    ],
+    "professionalInformation": [
+      "Sports Medicine Specialist",
+      "Athletic Trainer"
+    ],
+    "organizations": [
+      "American College of Sports Medicine",
+      "National Athletic Trainers Association"
+    ],
+    "culturalIdentifiers": [
+      "Korean-American",
+      "Sports medicine advocate"
+    ],
+    "allergies": "Dairy",
+    "additionalInformation": "Former college athlete",
+    "profilePictureUrl": "https://example.com/profiles/robert-lee.jpg",
+    "resumeUrl": "https://example.com/resumes/robert-lee.pdf",
+    "contacts": {
+      "email": "robert.lee@email.com",
+      "phone": "+1-555-0131",
+      "instagram": "rlee_sports",
+      "wechat": "robertlee90",
+      "line": "",
+      "discord": "rlee#1122",
+      "whatsapp": "+1-555-0131",
+      "linkedin": "robertlee",
+      "kakaotalk": "rlee90"
+    }
+  },
+  {
+    "name": "Sofia Martinez",
+    "password": "secure567#$%",
+    "rank": "Daughter",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Media Committee"
+    ],
+    "dateOfBirth": "1993-04-15",
+    "gender": "Female",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Phoenix, AZ",
+    "nationality": "American",
+    "race": "Hispanic or Latino",
+    "maritalStatus": "Single Never Married",
+    "children": 0,
+    "educationalBackground": [
+      "Arizona State University, BA Journalism, 2015",
+      "USC, MA Media Studies, 2017"
+    ],
+    "professionalInformation": [
+      "Digital Media Producer",
+      "Content Strategist"
+    ],
+    "organizations": [
+      "National Association of Hispanic Journalists",
+      "Online News Association"
+    ],
+    "culturalIdentifiers": [
+      "Mexican-American",
+      "Digital media innovator"
+    ],
+    "allergies": "",
+    "additionalInformation": "Award-winning documentary filmmaker",
+    "profilePictureUrl": "https://example.com/profiles/sofia-martinez.jpg",
+    "resumeUrl": "https://example.com/resumes/sofia-martinez.pdf",
+    "contacts": {
+      "email": "sofia.martinez@email.com",
+      "phone": "+1-555-0132",
+      "instagram": "sofia_media",
+      "wechat": "",
+      "line": "",
+      "discord": "sofia#3344",
+      "whatsapp": "+1-555-0132",
+      "linkedin": "sofiamartinez",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "William Brown",
+    "password": "protected789*&^",
+    "rank": "Son",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Business Development"
+    ],
+    "dateOfBirth": "1988-10-08",
+    "gender": "Male",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Detroit, MI",
+    "nationality": "American",
+    "race": "Black or African American",
+    "maritalStatus": "Married",
+    "children": 2,
+    "educationalBackground": [
+      "University of Michigan, BBA, 2010",
+      "Chicago Booth, MBA, 2012"
+    ],
+    "professionalInformation": [
+      "Management Consultant",
+      "Startup Advisor"
+    ],
+    "organizations": [
+      "National Black MBA Association",
+      "American Management Association"
+    ],
+    "culturalIdentifiers": [
+      "African-American",
+      "Business mentor"
+    ],
+    "allergies": "",
+    "additionalInformation": "Angel investor in tech startups",
+    "profilePictureUrl": "https://example.com/profiles/william-brown.jpg",
+    "resumeUrl": "https://example.com/resumes/william-brown.pdf",
+    "contacts": {
+      "email": "william.brown@email.com",
+      "phone": "+1-555-0133",
+      "instagram": "wbrown_biz",
+      "wechat": "",
+      "line": "",
+      "discord": "wbrown#5566",
+      "whatsapp": "+1-555-0133",
+      "linkedin": "williambrown",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "Sarah Kim",
+    "password": "complex789!@",
+    "rank": "Daughter",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Finance Committee"
+    ],
+    "dateOfBirth": "1991-03-17",
+    "gender": "Female",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Seoul, South Korea",
+    "nationality": "Korean-American",
+    "race": "Asian",
+    "maritalStatus": "Married",
+    "children": 1,
+    "educationalBackground": [
+      "University of Pennsylvania, BS Economics, 2013",
+      "Wharton School, MBA, 2015"
+    ],
+    "professionalInformation": [
+      "Investment Banking VP at Goldman Sachs",
+      "Financial Analyst at Morgan Stanley"
+    ],
+    "organizations": [
+      "CFA Institute",
+      "Korean-American Finance Association"
+    ],
+    "culturalIdentifiers": [
+      "Korean-American",
+      "First-generation immigrant"
+    ],
+    "allergies": "Lactose intolerant",
+    "additionalInformation": "Passionate about sustainable finance",
+    "profilePictureUrl": "https://example.com/profiles/sarah-kim.jpg",
+    "resumeUrl": "https://example.com/resumes/sarah-kim.pdf",
+    "contacts": {
+      "email": "sarah.kim@email.com",
+      "phone": "+1-555-0126",
+      "instagram": "sarahk_finance",
+      "wechat": "",
+      "line": "",
+      "discord": "",
+      "whatsapp": "+1-555-0126",
+      "linkedin": "sarahkim",
+      "kakaotalk": "sarahkim91"
+    }
+  },
+  {
+    "name": "David Washington",
+    "password": "secure456!@#",
+    "rank": "Son",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Community Outreach"
+    ],
+    "dateOfBirth": "1987-09-25",
+    "gender": "Male",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Atlanta, GA",
+    "nationality": "American",
+    "race": "Black or African American",
+    "maritalStatus": "Divorced",
+    "children": 1,
+    "educationalBackground": [
+      "Morehouse College, BA Political Science, 2009",
+      "Howard University Law School, JD, 2012"
+    ],
+    "professionalInformation": [
+      "Civil Rights Attorney",
+      "Legal Aid Director"
+    ],
+    "organizations": [
+      "American Bar Association",
+      "National Bar Association"
+    ],
+    "culturalIdentifiers": [
+      "African-American",
+      "Social justice advocate"
+    ],
+    "allergies": "",
+    "additionalInformation": "Pro bono work for underserved communities",
+    "profilePictureUrl": "https://example.com/profiles/david-washington.jpg",
+    "resumeUrl": "https://example.com/resumes/david-washington.pdf",
+    "contacts": {
+      "email": "d.washington@email.com",
+      "phone": "+1-555-0127",
+      "instagram": "dwash_law",
+      "wechat": "",
+      "line": "",
+      "discord": "dwash#3456",
+      "whatsapp": "+1-555-0127",
+      "linkedin": "davidwashington",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "Maria Garcia",
+    "password": "private321$%",
+    "rank": "Daughter",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Health Committee"
+    ],
+    "dateOfBirth": "1992-06-12",
+    "gender": "Female",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Los Angeles, CA",
+    "nationality": "American",
+    "race": "Hispanic or Latino",
+    "maritalStatus": "Single Never Married",
+    "children": 0,
+    "educationalBackground": [
+      "UCLA, BS Nursing, 2014",
+      "Johns Hopkins, MSN, 2016"
+    ],
+    "professionalInformation": [
+      "Nurse Practitioner",
+      "Public Health Educator"
+    ],
+    "organizations": [
+      "American Nurses Association",
+      "National Hispanic Nurses Association"
+    ],
+    "culturalIdentifiers": [
+      "Mexican-American",
+      "Healthcare advocate"
+    ],
+    "allergies": "Penicillin",
+    "additionalInformation": "Volunteers at free medical clinics",
+    "profilePictureUrl": "https://example.com/profiles/maria-garcia.jpg",
+    "resumeUrl": "https://example.com/resumes/maria-garcia.pdf",
+    "contacts": {
+      "email": "maria.garcia@email.com",
+      "phone": "+1-555-0128",
+      "instagram": "maria_health",
+      "wechat": "",
+      "line": "",
+      "discord": "mariag#7890",
+      "whatsapp": "+1-555-0128",
+      "linkedin": "mariagarcia",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "James Wilson",
+    "password": "protected567#@",
+    "rank": "Son",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Environmental Committee"
+    ],
+    "dateOfBirth": "1989-12-03",
+    "gender": "Male",
+    "sexualOrientation": "Homosexual",
+    "placeOfBirth": "Seattle, WA",
+    "nationality": "American",
+    "race": "White",
+    "maritalStatus": "Married",
+    "children": 0,
+    "educationalBackground": [
+      "University of Washington, BS Environmental Science, 2011",
+      "Yale, MS Environmental Management, 2013"
+    ],
+    "professionalInformation": [
+      "Environmental Scientist",
+      "Sustainability Consultant"
+    ],
+    "organizations": [
+      "Sierra Club",
+      "Environmental Defense Fund"
+    ],
+    "culturalIdentifiers": [
+      "LGBTQ+",
+      "Environmental activist"
+    ],
+    "allergies": "",
+    "additionalInformation": "Leading climate change initiatives",
+    "profilePictureUrl": "https://example.com/profiles/james-wilson.jpg",
+    "resumeUrl": "https://example.com/resumes/james-wilson.pdf",
+    "contacts": {
+      "email": "j.wilson@email.com",
+      "phone": "+1-555-0129",
+      "instagram": "jwilson_eco",
+      "wechat": "",
+      "line": "",
+      "discord": "jwilson#2345",
+      "whatsapp": "+1-555-0129",
+      "linkedin": "jameswilson",
+      "kakaotalk": ""
+    }
+  },
+  {
+    "name": "Aisha Patel",
+    "password": "secure890$%^",
+    "rank": "Daughter",
+    "chapters": "Founding Chapter",
+    "joinDate": "01/19/2025",
+    "projectGroups": [
+      "House Affiliated",
+      "Cultural Affairs"
+    ],
+    "dateOfBirth": "1994-02-28",
+    "gender": "Female",
+    "sexualOrientation": "Heterosexual",
+    "placeOfBirth": "Chicago, IL",
+    "nationality": "American",
+    "race": "Asian",
+    "maritalStatus": "Single Never Married",
+    "children": 0,
+    "educationalBackground": [
+      "Northwestern University, BA International Relations, 2016",
+      "Georgetown, MA Diplomacy, 2018"
+    ],
+    "professionalInformation": [
+      "Foreign Service Officer",
+      "Cultural Affairs Specialist"
+    ],
+    "organizations": [
+      "South Asian Bar Association",
+      "American Foreign Service Association"
+    ],
+    "culturalIdentifiers": [
+      "Indian-American",
+      "Interfaith advocate"
+    ],
+    "allergies": "",
+    "additionalInformation": "Speaks Hindi, Gujarati, and Arabic",
+    "profilePictureUrl": "https://example.com/profiles/aisha-patel.jpg",
+    "resumeUrl": "https://example.com/resumes/aisha-patel.pdf",
+    "contacts": {
+      "email": "aisha.patel@email.com",
+      "phone": "+1-555-0130",
+      "instagram": "aisha_global",
+      "wechat": "",
+      "line": "",
+      "discord": "aisha#6789",
+      "whatsapp": "+1-555-0130",
+      "linkedin": "aishapatel",
+      "kakaotalk": ""
+    }
+  }
+]

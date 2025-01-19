@@ -1,27 +1,50 @@
 // app/api/register/route.ts
-import { getAllMembers } from '@/lib/kv';
-import { Redis } from '@upstash/redis';
-
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL!,
-  token: process.env.KV_REST_API_TOKEN!
-});
+import { getAllRegistrations, registerMember } from '@/lib/kv';
+import type { RegistrationFormData } from '@/lib/kv';
+import bcrypt from 'bcrypt';
 
 export async function POST(req: Request) {
   try {
-    const newMember = await req.json();
+    const registrationData: RegistrationFormData = await req.json();
     
-    // Get existing members
-    const members = await getAllMembers();
+    // Check if user already exists
+    const registrations = await getAllRegistrations();
+    const existingUser = registrations.find(r => r.name === registrationData.name);
     
-    // Add new member
-    members.push(newMember);
+    if (existingUser) {
+      return Response.json(
+        { error: 'A user with this name already exists' }, 
+        { status: 400 }
+      );
+    }
+
+    // Hash the password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(registrationData.password, saltRounds);
+
+    // Replace plain password with hashed password
+    const dataToStore = {
+      ...registrationData,
+      password: hashedPassword
+    };
+
+    // Register new member
+    const success = await registerMember(dataToStore);
     
-    // Update Redis
-    await redis.set('roster:all', members);
-    
-    return Response.json({ success: true });
-  } catch {
-    return Response.json({ error: 'Failed to register' }, { status: 500 });
+    if (success) {
+      return Response.json({ success: true });
+    } else {
+      return Response.json(
+        { error: 'Failed to register user' }, 
+        { status: 500 }
+      );
+    }
+
+  } catch (error) {
+    console.error('Registration error:', error);
+    return Response.json(
+      { error: 'Failed to process registration' }, 
+      { status: 500 }
+    );
   }
 }
