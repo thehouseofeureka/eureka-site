@@ -4,15 +4,13 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/Navbar/Navbar'
 import Footer from '@/app/components/Footer/Footer'
 
-interface Props {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+type tParams = Promise<{ slug: string }>;
 
-export default async function UserProfile({
-  params,
-}: Props) {
-  const { slug } = await params;
+export default async function UserProfile(props: { params: tParams }) {
+  const { slug } = await props.params;
+
+  console.log(slug)
+
   const nameFromSlug = decodeURIComponent(slug)
     .replace(/_/g, ' ')
     .split(' ')
@@ -72,11 +70,13 @@ export default async function UserProfile({
           <div className={styles.section}>
             <h2>Contact Information</h2>
             <div className={styles.content}>
-              {Object.entries(member.contacts).map(([platform, value]) => {
+              {['Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
+                const value = member.contacts[platform.toLowerCase() as keyof typeof member.contacts];
                 if (!value) return null;
-                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
                 return (
-                  <p key={platform}><strong>{label}:</strong> {value}</p>
+                  <p key={platform}>
+                    <strong>{platform}:</strong> {value}
+                  </p>
                 );
               })}
             </div>
