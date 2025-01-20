@@ -70,6 +70,14 @@ function registrationToRoster(registration: RegistrationFormData): RosterMember 
   if (registration.gender) tags.add(registration.gender);
   if (registration.nationality) tags.add(registration.nationality);
   if (registration.contacts.instagram) tags.add('Instagram');
+  if (registration.contacts.wechat) tags.add('WeChat');
+  if (registration.contacts.line) tags.add('Line');
+  if (registration.contacts.discord) tags.add('Discord');
+  if (registration.contacts.whatsapp) tags.add('WhatsApp');
+  if (registration.contacts.linkedin) tags.add('LinkedIn');
+  if (registration.contacts.kakaotalk) tags.add('KakaoTalk');
+  if (registration.sexualOrientation) tags.add(registration.sexualOrientation);
+  if (registration.race) tags.add(registration.race);
   // Add more tag logic as needed
 
   return {
@@ -88,11 +96,8 @@ export async function registerMember(registration: RegistrationFormData) {
   try {
     // Get current registrations
     const registrations = await getAllRegistrations();
-
-    // Add new registration
     registrations.push(registration);
 
-    // Store updated list
     await redis.set('registration:all', registrations);
 
     return true;
