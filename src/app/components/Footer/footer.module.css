@@ -23,6 +23,7 @@
   transform: translateX(-50%);
   background: #FFFFFF;
   padding: 0 20px;
+  font-size: 20px;
 }
 
 .gridContainer {
@@ -43,10 +44,15 @@
   cursor: pointer;
 }
 
-.instagramLink {
+.instagramLink, .youtubeLink {
   color: #0096FF;
   text-decoration: underline;
   cursor: pointer;
+  display: block;
+}
+
+.instagramLink {
+  margin-bottom: 5px;
 }
 
 .sponsorText {
@@ -63,9 +69,9 @@
   margin: 0;
 }
 
-/* Hover effects */
 .emailLink:hover,
 .instagramLink:hover,
-.licenseLink:hover {
+.licenseLink:hover,
+.youtubeLink:hover {
   opacity: 0.8;
 }

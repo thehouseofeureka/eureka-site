@@ -26,6 +26,7 @@ export default function Home() {
           />
         </div>
       </div>
+      <i><p className={styles.mantra}>PURPOSE IS NOT FOUND IN ISOLATION</p></i>
       <Footer />
     </>
   )

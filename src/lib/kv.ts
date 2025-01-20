@@ -164,7 +164,7 @@ export async function initializeDB() {
 export async function getMemberRegistration(name: string): Promise<RegistrationFormData | null> {
   try {
     const registrations = await getAllRegistrations();
-    const member = registrations.find(r => r.name === name);
+    const member = registrations.find(r => r.name.toLowerCase() === name.toLowerCase());
     return member || null;
   } catch (error) {
     console.error('Failed to get member registration:', error);

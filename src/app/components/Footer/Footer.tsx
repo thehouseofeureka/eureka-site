@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.border} />
       <div className={styles.title}>
-        <h3>HOUSE OF EUREKA</h3>
+        <p>HOUSE OF EUREKA</p>
       </div>
 
       <div className={styles.gridContainer}>
@@ -29,6 +29,15 @@ export default function Footer() {
             className={styles.instagramLink}
           >
             Instagram
+          </a>
+          <a
+
+            href="https://youtube.com/@houseofeureka"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.youtubeLink}
+          >
+            YouTube
           </a>
         </div>
 

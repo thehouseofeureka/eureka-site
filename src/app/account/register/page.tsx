@@ -520,7 +520,7 @@ export default function Register() {
               </div>
 
               {/* Optional contact fields */}
-              {['Instagram', 'WeChat', 'Line', 'Discord', 'Whatsapp', 'LinkedIn', 'KakaoTalk'].map((field) => (
+              {['Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((field) => (
                 <div key={field} className={styles.formGroup}>
                   <FieldLabel
                     htmlFor={field}

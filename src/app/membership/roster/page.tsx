@@ -1,9 +1,10 @@
 'use client'
 import React, { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './page.module.css'
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
-import { Search, ChevronDown, ArrowDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { Search, ChevronDown, ArrowDown, ChevronUp, ArrowRight, ArrowUp } from 'lucide-react';
 import { getRosterView, RosterMember } from '@/lib/kv';
 
 export default function Roster() {
@@ -12,6 +13,7 @@ export default function Roster() {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [rosterData, setRosterData] = useState<RosterMember[]>([]);
   const [, setIsLoading] = useState(true);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,10 @@ export default function Roster() {
 
     loadMembers();
   }, []);
+
+  const toggleSortDirection = () => {
+    setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+  };
 
   // Get the most common tags
   const getPopularTags = (): string[] => {
@@ -73,9 +79,9 @@ export default function Roster() {
     });
   };
 
-  // Filter data based on search query and selected tags
+  // Filter and sort data based on search query, selected tags, and sort direction
   const filteredData = useMemo(() => {
-    return rosterData.filter(member => {
+    const filtered = rosterData.filter(member => {
       // Text search filter
       const matchesSearch = !searchQuery ||
         member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -90,7 +96,16 @@ export default function Roster() {
 
       return matchesSearch && matchesTags;
     });
-  }, [searchQuery, selectedTags, rosterData]);
+
+    // Sort by join date
+    return [...filtered].sort((a, b) => {
+      const dateA = new Date(a.joinDate);
+      const dateB = new Date(b.joinDate);
+      return sortDirection === 'asc'
+        ? dateA.getTime() - dateB.getTime()
+        : dateB.getTime() - dateA.getTime();
+    });
+  }, [searchQuery, selectedTags, rosterData, sortDirection]);
 
   // --- PAGINATION LOGIC ---
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -136,9 +151,6 @@ export default function Roster() {
                 ))}
               </div>
             </div>
-            {/* <button className={styles.moreTagsButton}>
-              See All Tags
-            </button> */}
           </div>
           <div className={styles.searchContainer}>
             <Search className={styles.searchIcon} size={20} />
@@ -161,14 +173,21 @@ export default function Roster() {
               <th className={styles.tableHeader}>
                 <div className={styles.headerWithIcon}>
                   Rank
-                  <ArrowDown size={16} className={styles.headerIcon} />
                 </div>
               </th>
               <th className={styles.tableHeader}>Chapters</th>
               <th className={styles.tableHeader}>
-                <div className={styles.headerWithIcon}>
+                <div
+                  className={`${styles.headerWithIcon} ${styles.sortableHeader}`}
+                  onClick={toggleSortDirection}
+                  style={{ cursor: 'pointer' }}
+                >
                   Join Date
-                  <ArrowDown size={16} className={styles.headerIcon} />
+                  {sortDirection === 'desc' ? (
+                    <ArrowDown size={16} className={styles.headerIcon} />
+                  ) : (
+                    <ArrowUp size={16} className={styles.headerIcon} />
+                  )}
                 </div>
               </th>
               <th className={styles.tableHeader}>Project Groups & Roles</th>
@@ -244,10 +263,13 @@ export default function Roster() {
                             </div>
                           </div>
                           <div className={`${styles.expandedSection} ${styles.profileSection}`}>
-                            <div className={styles.viewProfile}>
+                            <Link
+                              href={`/account/user/${member.name.toLowerCase().replace(/\s+/g, '_')}`}
+                              className={styles.viewProfile}
+                            >
                               <span>View Full Profile Here</span>
                               <ArrowRight size={16} />
-                            </div>
+                            </Link>
                           </div>
                         </div>
                       </div>
