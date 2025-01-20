@@ -251,17 +251,18 @@ export default function Roster() {
                           <div className={styles.expandedSection}>
                             <h3>Contacts</h3>
                             <div className={styles.contactsList}>
-                              {Object.entries(member.contacts).map(([platform, value]) => {
-                                if (!value) return null; // Skip empty values
-                                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                              {['Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
+                                const value = member.contacts[platform.toLowerCase() as keyof typeof member.contacts];
+                                if (!value) return null; // Skip platforms with no value
                                 return (
                                   <div key={platform}>
-                                    {label}: {value}
+                                    {platform}: {value}
                                   </div>
                                 );
                               })}
                             </div>
                           </div>
+
                           <div className={`${styles.expandedSection} ${styles.profileSection}`}>
                             <Link
                               href={`/account/user/${member.name.toLowerCase().replace(/\s+/g, '_')}`}
