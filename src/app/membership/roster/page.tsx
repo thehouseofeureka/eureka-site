@@ -251,7 +251,7 @@ export default function Roster() {
                           <div className={styles.expandedSection}>
                             <h3>Contacts</h3>
                             <div className={styles.contactsList}>
-                              {['Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
+                              {['Email', 'Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
                                 const value = member.contacts[platform.toLowerCase() as keyof typeof member.contacts];
                                 if (!value) return null; // Skip platforms with no value
                                 return (

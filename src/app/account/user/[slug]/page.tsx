@@ -113,14 +113,13 @@ export default async function UserProfile(props: { params: tParams }) {
             <div className={styles.section}>
               <h2>Contact Information</h2>
               <div className={styles.content}>
-                {['instagram', 'wechat', 'line', 'discord', 'whatsapp', 'linkedin', 'kakaotalk'].map((platform) => {
-                  const value = member.contacts[platform as keyof typeof member.contacts];
+                {['Email', 'Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
+                  const key = platform.toLowerCase() as keyof typeof member.contacts;
+                  const value = member.contacts[key];
                   if (!value || value.trim() === '') return null;
-                  // Capitalize first letter
-                  const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
                   return (
                     <p key={platform}>
-                      <strong>{platformName}:</strong> {value}
+                      <strong>{platform}:</strong> {value}
                     </p>
                   );
                 })}
