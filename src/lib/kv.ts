@@ -68,7 +68,6 @@ function registrationToRoster(registration: RegistrationFormData): RosterMember 
   const tags = new Set<string>();
 
   if (registration.gender) tags.add(registration.gender);
-  if (registration.nationality) tags.add(registration.nationality);
   if (registration.contacts.instagram) tags.add('Instagram');
   if (registration.contacts.wechat) tags.add('WeChat');
   if (registration.contacts.line) tags.add('Line');

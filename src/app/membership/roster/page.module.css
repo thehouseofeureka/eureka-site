@@ -247,6 +247,7 @@
 
 .viewProfile {
   padding-top: 20px;
+  padding-left: 20px;
   display: flex;
   align-items: center;
   gap: 0.5rem;

@@ -92,7 +92,7 @@ export default function Roster() {
 
       // Tag filter
       const matchesTags = selectedTags.size === 0 ||
-        member.tags.some(tag => selectedTags.has(tag));
+        Array.from(selectedTags).every(tag => member.tags.includes(tag));
 
       return matchesSearch && matchesTags;
     });

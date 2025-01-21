@@ -2,6 +2,7 @@
 'use client'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { RegistrationFormData } from '@/lib/kv';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import styles from './register.module.css';
@@ -54,42 +55,6 @@ const uploadFile = async (file: File, fileType: 'profile' | 'resume') => {
     throw error;
   }
 };
-
-interface RegistrationFormData {
-  name: string;
-  password: string;
-  rank: string;
-  chapters: string;
-  joinDate: string;
-  projectGroups: string[];
-  dateOfBirth: string;
-  gender: string;
-  sexualOrientation: string;
-  placeOfBirth: string;
-  nationality: string;
-  race: string;
-  maritalStatus: string;
-  children: number;
-  educationalBackground: string[];
-  professionalInformation: string[];
-  organizations: string[];
-  culturalIdentifiers: string[];
-  allergies: string;
-  additionalInformation: string;
-  profilePictureUrl: string;
-  resumeUrl: string;
-  contacts: {
-    email: string;
-    phone: string;
-    instagram: string;
-    wechat: string;
-    line: string;
-    discord: string;
-    whatsapp: string;
-    linkedin: string;
-    kakaotalk: string;
-  };
-}
 
 export default function Register() {
   const router = useRouter();

@@ -23,6 +23,44 @@ export default async function UserProfile(props: { params: tParams }) {
     notFound();
   }
 
+  // Helper functions to determine if sections have data
+  const hasBasicInfo = Object.values({
+    rank: member.rank,
+    chapters: member.chapters,
+    joinDate: member.joinDate,
+    dateOfBirth: member.dateOfBirth,
+    gender: member.gender,
+    sexualOrientation: member.sexualOrientation,
+    placeOfBirth: member.placeOfBirth,
+    nationality: member.nationality,
+    race: member.race,
+    maritalStatus: member.maritalStatus,
+    children: member.children !== undefined && member.children !== null ? true : false,
+  }).some(value => value);
+
+  const hasContactInfo = Object.values(member.contacts).some(value => value && value.trim() !== '');
+
+  const hasProfessionalBackground = [
+    member.educationalBackground,
+    member.professionalInformation
+  ].some(arr => Array.isArray(arr) && arr.filter(item => item.trim() !== '').length > 0);
+
+  const hasOrganizationsOrGroups = [
+    member.projectGroups,
+    member.organizations
+  ].some(arr => Array.isArray(arr) && arr.filter(item => item.trim() !== '').length > 0);
+
+  const hasCulturalOrAdditionalInfo = [
+    member.culturalIdentifiers,
+    member.allergies,
+    member.additionalInformation
+  ].some(item => {
+    if (Array.isArray(item)) {
+      return item.filter(i => i.trim() !== '').length > 0;
+    }
+    return item && item.trim() !== '';
+  });
+
   return (
     <>
       <Navbar />
@@ -50,108 +88,145 @@ export default async function UserProfile(props: { params: tParams }) {
         )}
 
         <div className={styles.grid}>
-          <div className={styles.section}>
-            <h2>Basic Information</h2>
-            <div className={styles.content}>
-              <p><strong>Rank:</strong> {member.rank}</p>
-              <p><strong>Chapters:</strong> {member.chapters}</p>
-              <p><strong>Join Date:</strong> {member.joinDate}</p>
-              <p><strong>Date of Birth:</strong> {member.dateOfBirth}</p>
-              <p><strong>Gender:</strong> {member.gender}</p>
-              <p><strong>Sexual Orientation:</strong> {member.sexualOrientation}</p>
-              <p><strong>Place of Birth:</strong> {member.placeOfBirth}</p>
-              <p><strong>Nationality:</strong> {member.nationality}</p>
-              <p><strong>Race:</strong> {member.race}</p>
-              <p><strong>Marital Status:</strong> {member.maritalStatus}</p>
-              <p><strong>Children:</strong> {member.children}</p>
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <h2>Contact Information</h2>
-            <div className={styles.content}>
-              {['Instagram', 'WeChat', 'Line', 'Discord', 'WhatsApp', 'LinkedIn', 'KakaoTalk'].map((platform) => {
-                const value = member.contacts[platform.toLowerCase() as keyof typeof member.contacts];
-                if (!value) return null;
-                return (
-                  <p key={platform}>
-                    <strong>{platform}:</strong> {value}
-                  </p>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <h2>Professional Background</h2>
-            <div className={styles.content}>
-              <div>
-                <strong>Educational Background:</strong>
-                <ul>
-                  {member.educationalBackground.map((edu, i) => (
-                    <li key={i}>{edu}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <strong>Professional Information:</strong>
-                <ul>
-                  {member.professionalInformation.map((info, i) => (
-                    <li key={i}>{info}</li>
-                  ))}
-                </ul>
+          {/* Basic Information Section */}
+          {hasBasicInfo && (
+            <div className={styles.section}>
+              <h2>Basic Information</h2>
+              <div className={styles.content}>
+                {member.rank && <p><strong>Rank:</strong> {member.rank}</p>}
+                {member.chapters && <p><strong>Chapters:</strong> {member.chapters}</p>}
+                {member.joinDate && <p><strong>Join Date:</strong> {member.joinDate}</p>}
+                {member.dateOfBirth && <p><strong>Date of Birth:</strong> {member.dateOfBirth}</p>}
+                {member.gender && <p><strong>Gender:</strong> {member.gender}</p>}
+                {member.sexualOrientation && <p><strong>Sexual Orientation:</strong> {member.sexualOrientation}</p>}
+                {member.placeOfBirth && <p><strong>Place of Birth:</strong> {member.placeOfBirth}</p>}
+                {member.nationality && <p><strong>Nationality:</strong> {member.nationality}</p>}
+                {member.race && <p><strong>Race:</strong> {member.race}</p>}
+                {member.maritalStatus && <p><strong>Marital Status:</strong> {member.maritalStatus}</p>}
+                {(member.children !== undefined && member.children !== null) && <p><strong>Children:</strong> {member.children}</p>}
               </div>
             </div>
-          </div>
+          )}
 
-          <div className={styles.section}>
-            <h2>Organization & Project Groups</h2>
-            <div className={styles.content}>
-              <div>
-                <strong>Project Groups:</strong>
-                <ul>
-                  {member.projectGroups.map((group, i) => (
-                    <li key={i}>{group}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <strong>Organizations:</strong>
-                <ul>
-                  {member.organizations.map((org, i) => (
-                    <li key={i}>{org}</li>
-                  ))}
-                </ul>
+          {/* Contact Information Section */}
+          {hasContactInfo && (
+            <div className={styles.section}>
+              <h2>Contact Information</h2>
+              <div className={styles.content}>
+                {['instagram', 'wechat', 'line', 'discord', 'whatsapp', 'linkedin', 'kakaotalk'].map((platform) => {
+                  const value = member.contacts[platform as keyof typeof member.contacts];
+                  if (!value || value.trim() === '') return null;
+                  // Capitalize first letter
+                  const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+                  return (
+                    <p key={platform}>
+                      <strong>{platformName}:</strong> {value}
+                    </p>
+                  );
+                })}
               </div>
             </div>
-          </div>
+          )}
 
-          <div className={styles.section}>
-            <h2>Cultural & Additional Information</h2>
-            <div className={styles.content}>
-              <div>
-                <strong>Cultural Identifiers:</strong>
-                <ul>
-                  {member.culturalIdentifiers.map((identifier, i) => (
-                    <li key={i}>{identifier}</li>
-                  ))}
-                </ul>
+          {/* Professional Background Section */}
+          {hasProfessionalBackground && (
+            <div className={styles.section}>
+              <h2>Professional Background</h2>
+              <div className={styles.content}>
+                {member.educationalBackground && member.educationalBackground.filter(edu => edu.trim() !== '').length > 0 && (
+                  <div>
+                    <strong>Educational Background:</strong>
+                    <ul>
+                      {member.educationalBackground
+                        .filter(edu => edu.trim() !== '')
+                        .map((edu, i) => (
+                          <li key={i}>{edu}</li>
+                        ))}
+                    </ul>
+                  </div>
+                )}
+
+                {member.professionalInformation && member.professionalInformation.filter(info => info.trim() !== '').length > 0 && (
+                  <div>
+                    <strong>Professional Information:</strong>
+                    <ul>
+                      {member.professionalInformation
+                        .filter(info => info.trim() !== '')
+                        .map((info, i) => (
+                          <li key={i}>{info}</li>
+                        ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-
-              {member.allergies && (
-                <p><strong>Allergies:</strong> {member.allergies}</p>
-              )}
-
-              {member.additionalInformation && (
-                <div>
-                  <strong>Additional Information:</strong>
-                  <p>{member.additionalInformation}</p>
-                </div>
-              )}
             </div>
-          </div>
+          )}
+
+          {/* Organization & Project Groups Section */}
+          {hasOrganizationsOrGroups && (
+            <div className={styles.section}>
+              <h2>Organization & Project Groups</h2>
+              <div className={styles.content}>
+                {member.projectGroups && member.projectGroups.filter(group => group.trim() !== '').length > 0 && (
+                  <div>
+                    <strong>Project Groups:</strong>
+                    <ul>
+                      {member.projectGroups
+                        .filter(group => group.trim() !== '')
+                        .map((group, i) => (
+                          <li key={i}>{group}</li>
+                        ))}
+                    </ul>
+                  </div>
+                )}
+
+                {member.organizations && member.organizations.filter(org => org.trim() !== '').length > 0 && (
+                  <div>
+                    <strong>Organizations:</strong>
+                    <ul>
+                      {member.organizations
+                        .filter(org => org.trim() !== '')
+                        .map((org, i) => (
+                          <li key={i}>{org}</li>
+                        ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Cultural & Additional Information Section */}
+          {hasCulturalOrAdditionalInfo && (
+            <div className={styles.section}>
+              <h2>Cultural & Additional Information</h2>
+              <div className={styles.content}>
+                {member.culturalIdentifiers && member.culturalIdentifiers.filter(id => id.trim() !== '').length > 0 && (
+                  <div>
+                    <strong>Cultural Identifiers:</strong>
+                    <ul>
+                      {member.culturalIdentifiers
+                        .filter(id => id.trim() !== '')
+                        .map((identifier, i) => (
+                          <li key={i}>{identifier}</li>
+                        ))}
+                    </ul>
+                  </div>
+                )}
+
+                {member.allergies && member.allergies.trim() !== '' && (
+                  <p><strong>Allergies:</strong> {member.allergies}</p>
+                )}
+
+                {member.additionalInformation && member.additionalInformation.trim() !== '' && (
+                  <div>
+                    <strong>Additional Information:</strong>
+                    <p>{member.additionalInformation}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
