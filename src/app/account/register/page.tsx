@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RegistrationFormData } from '@/lib/kv';
+import CountrySelect from '@/app/components/CountrySelect/CountrySelect';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import styles from './register.module.css';
@@ -170,13 +171,54 @@ export default function Register() {
     }
   };
 
+  const cleanLinkedInUrl = (url: string): string => {
+    if (!url) return '';
+
+    // Remove trailing slash if present
+    let cleaned = url.trim().replace(/\/$/, '');
+
+    // If no protocol, add https://
+    if (!cleaned.startsWith('http')) {
+      cleaned = 'https://' + cleaned;
+    }
+
+    // Convert http to https
+    cleaned = cleaned.replace(/^http:/, 'https:');
+
+    // If no www, add it and standardize to www.linkedin.com
+    if (!cleaned.includes('www.linkedin.com')) {
+      cleaned = cleaned.replace(/linkedin\.com/, 'www.linkedin.com');
+    }
+
+    // Extract just the username part before any numbers
+    const linkedInMatch = cleaned.match(/www\.linkedin\.com\/in\/([a-zA-Z-]+)/i);
+    if (linkedInMatch) {
+      // Return with just the base username (before any numbers)
+      return `https://www.linkedin.com/in/${linkedInMatch[1]}`;
+    }
+
+    // If it's just a username, construct the full URL
+    if (/^[a-zA-Z-]+$/.test(cleaned)) {
+      return `https://www.linkedin.com/in/${cleaned}`;
+    }
+
+    return cleaned;
+  };
+
   // Helper function to update contact fields
   const updateContact = (field: keyof typeof formData.contacts, value: string) => {
+    let finalValue = value;
+
+    // Apply special cleaning for LinkedIn
+    if (field.toLowerCase() === 'linkedin') {
+      finalValue = cleanLinkedInUrl(value);
+    }
+
     setFormData(prev => ({
       ...prev,
       contacts: {
         ...prev.contacts,
-        [field]: value
+        [field]: finalValue
       }
     }));
   };
@@ -348,13 +390,8 @@ export default function Register() {
 
               <div className={styles.formGroup}>
                 <FieldLabel htmlFor="nationality" label="Nationality" required />
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="nationality"
-                  required
-                  value={formData.nationality}
-                  onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
+                <CountrySelect
+                  onSelect={(country) => setFormData({ ...formData, nationality: country })}
                 />
               </div>
             </div>
@@ -421,7 +458,7 @@ export default function Register() {
                   type="text"
                   value={edu}
                   onChange={(e) => updateArray('educationalBackground', index, e.target.value)}
-                  placeholder="School, Degree, Year"
+                  placeholder="ex. New York University, Bachelors of Science in Computer Science, 2025"
                 />
                 <div className={styles.buttonGroup}>
                   {/* Show remove button if there's more than one field */}
