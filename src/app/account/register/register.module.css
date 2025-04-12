@@ -103,7 +103,7 @@
 }
 
 .submitButton {
-  background-color: #5ecc8c;
+  background-color: #980000;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -183,57 +183,77 @@
 }
 
 .arrayField {
-  margin-bottom: 12px;
+  margin-bottom: 8px; /* Reduced from 12px to compress items */
   display: flex;
   gap: 8px;
-  align-items: flex-start;
+  align-items: center; /* Changed from flex-start to center for perfect vertical alignment */
+  padding: 4px 0; /* Added slight padding for better spacing */
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.arrayField:hover {
+  background-color: #f7fafc; /* Universal hover effect */
 }
 
 .arrayFieldInput {
   flex: 1;
+  height: 40px; /* Ensuring consistent height */
 }
 
 .buttonGroup {
   display: flex;
   gap: 8px;
-}
-
-.addButton {
-  background-color: #62a9e3;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  align-items: center;
 }
 
 .removeButton {
-  background-color: #f56565;
+  background-color: #980000;
   color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.addButton,
-.removeButton {
-  padding: 0 12px;
-  height: 40px;
-  font-size: 14px;
+.sectionControls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.addButton, 
+.removeButton, 
+.collapseAllButton {
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  border: none;
+  transition: background-color 0.2s;
 }
 
-.addButton:hover {
-  background-color: #3182ce;
+.addButton {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.collapseAllButton {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 
 .removeButton:hover {
-  background-color: #e53e3e;
+  background-color: #980000;
+}
+
+.collapseAllButton:hover {
+  background-color: #718096;
 }
 
 .fileInputWrapper {
@@ -310,4 +330,60 @@
   opacity: 0.5;
   cursor: not-allowed;
   background-color: #9ca3af;
+}
+
+/* Accordion Styling */
+.accordionSection {
+  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f7fafc;
+  cursor: pointer;
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s;
+}
+
+.accordionHeader:hover {
+  background-color: #edf2f7;
+}
+
+.accordionTitle {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+  color: #2d3748;
+}
+
+.accordionContent {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Universal expand/collapse button styling */
+.accordionButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #4a5568;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.accordionButton:hover {
+  color: #2d3748;
+}
+
+.accordionButton.expanded {
+  transform: rotate(180deg);
 }

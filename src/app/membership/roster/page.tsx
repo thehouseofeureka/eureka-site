@@ -39,19 +39,17 @@ export default function Roster() {
     setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
   };
 
-  // Get the most common tags
-  const getPopularTags = (): string[] => {
-    const tagCount = new Map<string, number>();
+  // Get all unique tags
+  const getAllTags = (): string[] => {
+    const uniqueTags = new Set<string>();
     rosterData.forEach(member => {
       member.tags.forEach(tag => {
-        tagCount.set(tag, (tagCount.get(tag) || 0) + 1);
+        uniqueTags.add(tag);
       });
     });
 
-    return Array.from(tagCount.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([tag]) => tag);
+    // Convert Set to Array and sort alphabetically
+    return Array.from(uniqueTags).sort();
   };
 
   // Toggle tag selection
@@ -120,6 +118,9 @@ export default function Roster() {
     }
   }, [currentPage, totalPages]);
 
+  // Get all tags for the tag bank
+  const allTags = getAllTags();
+
   return (
     <>
       <Navbar />
@@ -128,19 +129,9 @@ export default function Roster() {
         <div className={styles.searchSection}>
           <div className={styles.tagsContainer}>
             <div className={styles.tagsRows}>
-              <div className={styles.tagRow}>
-                {getPopularTags().slice(0, 4).map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => toggleTag(tag)}
-                    className={`${styles.filterTag} ${selectedTags.has(tag) ? styles.filterTagSelected : ''}`}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.tagRow}>
-                {getPopularTags().slice(4, 8).map((tag) => (
+              {/* Display all tags in the tag bank with appropriate styling */}
+              <div className={styles.allTagsContainer}>
+                {allTags.map((tag) => (
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
@@ -282,19 +273,21 @@ export default function Roster() {
           </tbody>
         </table>
         {filteredData.length > itemsPerPage && (
-          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <div className={styles.paginationContainer}>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
+              className={styles.paginationButton}
             >
               Previous
             </button>
-            <span>
+            <span className={styles.paginationInfo}>
               Page {currentPage} of {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={currentPage === totalPages}
+              className={styles.paginationButton}
             >
               Next
             </button>

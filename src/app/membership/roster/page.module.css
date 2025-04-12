@@ -11,6 +11,7 @@
   margin-bottom: 1rem;
 }
 
+
 .hasExpandedContent td {
   border-bottom: none !important;
 }
@@ -51,7 +52,8 @@
   justify-content: center;
   min-width: fit-content;
   height: 2.125rem;
-  margin-right: 0.5rem;
+  margin-right: 1px;
+  margin-bottom: 1px;
   font-family: Georgia, serif;
 }
 
@@ -219,6 +221,14 @@
   margin-bottom: 0.75rem;
 }
 
+.allTagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 60%;
+  margin-bottom: 1rem;
+}
+
 .tagsList {
   display: flex;
   flex-wrap: wrap;
@@ -255,6 +265,7 @@
   color: #980000;
   cursor: pointer;
   font-weight: 500;
+  font-family: Georgia, serif;
 }
 
 .additionalInfo {
@@ -272,4 +283,39 @@
 .infoSection strong {
   display: block;
   margin-bottom: 0.25rem;
+}
+
+.paginationContainer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-family: Georgia, serif;
+}
+
+.paginationButton {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: #f7fafc;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationInfo {
+  font-family: Georgia, serif;
+  font-size: 0.875rem;
 }

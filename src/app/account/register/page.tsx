@@ -7,6 +7,36 @@ import CountrySelect from '@/app/components/CountrySelect/CountrySelect';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import styles from './register.module.css';
+import { ChevronDown } from 'lucide-react';
+
+interface AccordionProps {
+  title: string;
+  children: React.ReactNode;
+  isOpen: boolean;
+  toggleOpen: () => void;
+}
+
+const Accordion: React.FC<AccordionProps> = ({ title, children, isOpen, toggleOpen }) => {
+  return (
+    <div className={styles.accordionSection}>
+      <div className={styles.accordionHeader} onClick={toggleOpen}>
+        <h3 className={styles.accordionTitle}>{title}</h3>
+        <button
+          className={`${styles.accordionButton} ${isOpen ? styles.expanded : ''}`}
+          type="button"
+          aria-label={isOpen ? "Collapse section" : "Expand section"}
+        >
+          <ChevronDown size={20} />
+        </button>
+      </div>
+      {isOpen && (
+        <div className={styles.accordionContent}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const RequiredField = () => (
   <span style={{ color: 'red', marginLeft: '3px' }}>*</span>
@@ -62,6 +92,18 @@ export default function Register() {
   const [customGender, setCustomGender] = useState<string>('');
   const [customSexualOrientation, setCustomSexualOrientation] = useState<string>('');
 
+  const [accordionStates, setAccordionStates] = useState<{
+    education: boolean;
+    professional: boolean;
+    organizations: boolean;
+    cultural: boolean;
+  }>({
+    education: true,
+    professional: true,
+    organizations: true,
+    cultural: true
+  });
+
   const [selectedFiles, setSelectedFiles] = useState<{
     profile?: File;
     resume?: File;
@@ -109,6 +151,21 @@ export default function Register() {
     }
   });
 
+  const toggleAccordion = (section: 'education' | 'professional' | 'organizations' | 'cultural'): void => {
+    setAccordionStates(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const collapseAllSections = (): void => {
+    setAccordionStates({
+      education: false,
+      professional: false,
+      organizations: false,
+      cultural: false
+    });
+  };
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>, type: 'profile' | 'resume') => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFiles(prev => ({
@@ -451,47 +508,63 @@ export default function Register() {
           {/* Educational Background Section */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Educational Background</h2>
-            {formData.educationalBackground.map((edu, index) => (
-              <div key={index} className={styles.arrayField}>
-                <input
-                  className={`${styles.input} ${styles.arrayFieldInput}`}
-                  type="text"
-                  value={edu}
-                  onChange={(e) => updateArray('educationalBackground', index, e.target.value)}
-                  placeholder="ex. New York University, Bachelors of Science in Computer Science, 2025"
-                />
-                <div className={styles.buttonGroup}>
-                  {/* Show remove button if there's more than one field */}
-                  {formData.educationalBackground.length > 1 && (
-                    <button
-                      type="button"
-                      className={styles.removeButton}
-                      onClick={() => {
-                        setFormData({
+            <div className={styles.sectionControls}>
+              <button
+                type="button"
+                className={styles.collapseAllButton}
+                onClick={collapseAllSections}
+              >
+                Collapse all
+              </button>
+            </div>
+
+            <Accordion
+              title="Educational Background"
+              isOpen={accordionStates.education}
+              toggleOpen={() => toggleAccordion('education')}
+            >
+              {formData.educationalBackground.map((edu, index) => (
+                <div key={index} className={styles.arrayField}>
+                  <input
+                    className={`${styles.input} ${styles.arrayFieldInput}`}
+                    type="text"
+                    value={edu}
+                    onChange={(e) => updateArray('educationalBackground', index, e.target.value)}
+                    placeholder="ex. New York University, Bachelors of Science in Computer Science, 2025"
+                  />
+                  <div className={styles.buttonGroup}>
+                    {/* Show remove button if there's more than one field */}
+                    {formData.educationalBackground.length > 1 && (
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            educationalBackground: formData.educationalBackground.filter((_, i) => i !== index)
+                          });
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
+                    {/* Only show Add More button on the last field */}
+                    {index === formData.educationalBackground.length - 1 && (
+                      <button
+                        type="button"
+                        className={styles.addButton}
+                        onClick={() => setFormData({
                           ...formData,
-                          educationalBackground: formData.educationalBackground.filter((_, i) => i !== index)
-                        });
-                      }}
-                    >
-                      Remove
-                    </button>
-                  )}
-                  {/* Only show Add More button on the last field */}
-                  {index === formData.educationalBackground.length - 1 && (
-                    <button
-                      type="button"
-                      className={styles.addButton}
-                      onClick={() => setFormData({
-                        ...formData,
-                        educationalBackground: [...formData.educationalBackground, '']
-                      })}
-                    >
-                      Add More
-                    </button>
-                  )}
+                          educationalBackground: [...formData.educationalBackground, '']
+                        })}
+                      >
+                        Add More
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </Accordion>
           </section>
 
           {/* Contact Information Section */}
@@ -543,9 +616,21 @@ export default function Register() {
           {/* Professional & Organizational Information Section */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Professional & Organizational Information</h2>
+            <div className={styles.sectionControls}>
+              <button
+                type="button"
+                className={styles.collapseAllButton}
+                onClick={collapseAllSections}
+              >
+                Collapse All
+              </button>
+            </div>
 
-            <div className={styles.formGroup}>
-              <h3 className={styles.subTitle}>Professional Information</h3>
+            <Accordion
+              title="Professional Information"
+              isOpen={accordionStates.professional}
+              toggleOpen={() => toggleAccordion('professional')}
+            >
               <p className={styles.subDescription}>
                 If applicable, list your five most recent Job Titles and their respective Companies in the provided format. Sections that are unable to be filled out can be left blank.
               </p>
@@ -588,10 +673,13 @@ export default function Register() {
                   </div>
                 </div>
               ))}
-            </div>
+            </Accordion>
 
-            <div className={styles.formGroup}>
-              <h3 className={styles.subTitle}>Organizations</h3>
+            <Accordion
+              title="Organizations"
+              isOpen={accordionStates.organizations}
+              toggleOpen={() => toggleAccordion('organizations')}
+            >
               <p className={styles.subDescription}>
                 If applicable, list your five most recent Titles and their respective Organizations in the provided format. Sections that are unable to be filled out can be left blank.
               </p>
@@ -634,10 +722,13 @@ export default function Register() {
                   </div>
                 </div>
               ))}
-            </div>
+            </Accordion>
 
-            <div className={styles.formGroup}>
-              <h3 className={styles.subTitle}>Cultural Identifiers</h3>
+            <Accordion
+              title="Cultural Identifiers"
+              isOpen={accordionStates.cultural}
+              toggleOpen={() => toggleAccordion('cultural')}
+            >
               <p className={styles.subDescription}>
                 Please list any languages spoken, hobbies or interests, religious or cultural affiliation, etc.
               </p>
@@ -680,7 +771,7 @@ export default function Register() {
                   </div>
                 </div>
               ))}
-            </div>
+            </Accordion>
           </section>
 
           {/* Additional Information Section */}
@@ -716,6 +807,9 @@ export default function Register() {
             {/* Profile Picture Upload */}
             <div className={styles.formGroup}>
               <FieldLabel htmlFor="profilePicture" label="Profile Picture" required />
+              <p className={styles.fileDescription}>
+                Please submit a full frontal face profile picture
+              </p>
               <div className={styles.fileInputWrapper}>
                 <input
                   className={styles.fileInput}
